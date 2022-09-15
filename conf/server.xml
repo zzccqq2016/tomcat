@@ -126,6 +126,7 @@
                resourceName="UserDatabase"/>
       </Realm>
 
+        <!--     kira: unpackWARS:是否解压war包   -->
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 
