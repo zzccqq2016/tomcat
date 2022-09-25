@@ -181,12 +181,14 @@ public final class Bootstrap {
 
     /**
      * Initialize daemon.
+     *
      * @throws Exception Fatal initialization error
      */
     public void init() throws Exception {
 
         // Set Catalina path
         setCatalinaHome();
+
         setCatalinaBase();
 
         initClassLoaders();
@@ -413,8 +415,8 @@ public final class Bootstrap {
                 args[args.length - 1] = "stop";
                 daemon.stop();
             } else if (command.equals("start")) {
-                daemon.setAwait(true);
-                daemon.load(args);
+                daemon.setAwait(true);// 设置阻塞标志
+                daemon.load(args); // 解析server.xml,初始化Catalina
                 daemon.start();
                 if (null == daemon.getServer()) {
                     System.exit(1);

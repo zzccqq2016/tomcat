@@ -62,7 +62,7 @@ public class EngineRuleSet extends RuleSetBase {
      * matching pattern prefix.
      *
      * @param prefix Prefix for matching pattern rules (including the
-     *  trailing slash character)
+     *               trailing slash character)
      */
     public EngineRuleSet(String prefix) {
 
@@ -83,51 +83,51 @@ public class EngineRuleSet extends RuleSetBase {
      * by a Digester instance.</p>
      *
      * @param digester Digester instance to which the new Rule instances
-     *  should be added.
+     *                 should be added.
      */
     @Override
     public void addRuleInstances(Digester digester) {
 
         digester.addObjectCreate(prefix + "Engine",
-                                 "org.apache.catalina.core.StandardEngine",
-                                 "className");
+                "org.apache.catalina.core.StandardEngine",
+                "className");
         digester.addSetProperties(prefix + "Engine");
         digester.addRule(prefix + "Engine",
-                         new LifecycleListenerRule
-                         ("org.apache.catalina.startup.EngineConfig",
-                          "engineConfigClass"));
+                new LifecycleListenerRule
+                        ("org.apache.catalina.startup.EngineConfig",
+                                "engineConfigClass"));
         digester.addSetNext(prefix + "Engine",
-                            "setContainer",
-                            "org.apache.catalina.Container");
+                "setContainer",
+                "org.apache.catalina.Container");
 
         //Cluster configuration start
         digester.addObjectCreate(prefix + "Engine/Cluster",
-                                 null, // MUST be specified in the element
-                                 "className");
+                null, // MUST be specified in the element
+                "className");
         digester.addSetProperties(prefix + "Engine/Cluster");
         digester.addSetNext(prefix + "Engine/Cluster",
-                            "setCluster",
-                            "org.apache.catalina.Cluster");
+                "setCluster",
+                "org.apache.catalina.Cluster");
         //Cluster configuration end
 
         digester.addObjectCreate(prefix + "Engine/Listener",
-                                 null, // MUST be specified in the element
-                                 "className");
+                null, // MUST be specified in the element
+                "className");
         digester.addSetProperties(prefix + "Engine/Listener");
         digester.addSetNext(prefix + "Engine/Listener",
-                            "addLifecycleListener",
-                            "org.apache.catalina.LifecycleListener");
+                "addLifecycleListener",
+                "org.apache.catalina.LifecycleListener");
 
 
         digester.addRuleSet(new RealmRuleSet(prefix + "Engine/"));
 
         digester.addObjectCreate(prefix + "Engine/Valve",
-                                 null, // MUST be specified in the element
-                                 "className");
+                null, // MUST be specified in the element
+                "className");
         digester.addSetProperties(prefix + "Engine/Valve");
         digester.addSetNext(prefix + "Engine/Valve",
-                            "addValve",
-                            "org.apache.catalina.Valve");
+                "addValve",
+                "org.apache.catalina.Valve");
 
     }
 
