@@ -555,14 +555,14 @@ public class Catalina {
      * Start a new server instance.
      */
     public void load() {
-
+        //如果已经加载则退出
         if (loaded) {
             return;
         }
         loaded = true;
 
         long t1 = System.nanoTime();
-
+        // （已经弃用）
         initDirs();
 
         // Before digester - it may be needed
@@ -571,6 +571,7 @@ public class Catalina {
         // Create and execute our Digester
         Digester digester = createStartDigester();
 
+        //获取配置文件
         InputSource inputSource = null;
         InputStream inputStream = null;
         File file = null;
@@ -631,6 +632,7 @@ public class Catalina {
                 return;
             }
 
+            // 解析 server.xml
             try {
                 inputSource.setByteStream(inputStream);
                 digester.push(this);
@@ -655,11 +657,10 @@ public class Catalina {
 
         getServer().setCatalina(this);
 
-        // Stream redirection
         initStreams();
 
-        // Start the new server
         try {
+            // 启动Server
             getServer().init();
         } catch (LifecycleException e) {
             if (Boolean.getBoolean("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE")) {
