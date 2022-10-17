@@ -318,7 +318,7 @@ public class JIoEndpoint extends AbstractEndpoint<Socket> {
                         if (status == null) {
                             state = handler.process(socket, SocketStatus.OPEN_READ);
                         } else {
-                            state = handler.process(socket,status);
+                                state = handler.process(socket,status);
                         }
                     }
                     if (state == SocketState.CLOSED) {
